@@ -1,3 +1,3 @@
 # C-Code
 
-A collection of programming assignments completed by me for COMP ENG 2SH4 (Offered at McMaster University).
+A collection of assignments completed by me in the C programming language for COMP ENG 2SH4 (Offered at McMaster University).

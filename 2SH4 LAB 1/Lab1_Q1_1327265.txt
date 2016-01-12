@@ -1,0 +1,62 @@
+/* LAB 1 QUESTION 1
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+int main(void) 
+{
+    /* This program computes the sum of n^2 from n = 1 to n = 30 by using 3 
+     * different loop types*/
+    
+    int num;
+    int total;
+
+    /* Declaring the 2 variables to be used in the calculations, one is "n"
+     * and the other is the sum after each iteration*/
+    
+    num = 1;
+    total = 0;
+    
+    /* A while loop, keeps repeating until 30 iterations have been done. 
+     * It knows this because the term is increased after each iteration*/
+    
+    while (num <= 30){
+        total = total + num*num;
+        num++;
+    }
+        
+    printf("The value of the sum is %d\n", total);
+    
+    /* Values are reset as per the particular loop*/
+    
+    total = 0;
+    num = 0;        
+    
+    /* The following two loops have the same method and conditions as the last
+     * but it is achieved slightly differently due to their loop structure*/
+    
+    for (num=1; num<=30; num++) {
+        total = total + num*num;
+    }
+    
+    printf("The value of the sum is %d\n", total);
+    
+    total = 0;
+    num = 1;    
+    
+    do {
+        total = total + num*num;
+        num++;
+    }
+    
+    while (num<=30);
+    
+    printf("The value of the sum is %d\n", total);
+    
+    return 0;
+}
+

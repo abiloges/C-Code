@@ -1,0 +1,110 @@
+/* LAB 2 QUESTION 3
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+#include <math.h>
+
+/* This library performs a variety of common vector functions, including 
+ * addition, scalar product and L1, L2 norms*/
+
+void printVector(double array[], int size);
+double norm1(double vector[], int size);
+void addVectors(double vector1[], double vector2[], double vector3[], int n);
+double scalarProd(double vector1[], double vector2[], int size);
+double norm2(double vector[], int size);
+
+
+int main(void) {
+    
+    double a[3] = {1,2,3};
+    double b[3] = {4,5,6};
+    double c[3];
+    int n = 3;
+    
+    printf("The components of vector1 are: ");
+    
+    printVector(a,n);
+ 
+    printf("\nThe L1 norm of vector1 is: %f", norm1(a,n));
+    
+    printf("\nThe sum of vector1 and vector2 is vector3 whose components are: ");
+    addVectors(a,b,c,n);
+    printVector(c,n);
+            
+    printf("\nThe scalar product of vector1 and vector2 is: %f", scalarProd(a,b,n));
+    
+    printf("\nThe L2 norm of vector1 is: %f", norm2(a,n));
+    
+    
+    return 0;
+}
+
+void printVector(double array[], int size) {
+    
+    int i;
+    
+    for (i=0;i<size-1;i++) {
+        
+        printf("%f, ", array[i]);
+    }
+    
+    printf("%f", array[size-1]);
+    
+}
+
+double norm1(double vector[], int size) {
+    
+    int i;
+    float sum = 0;
+    
+    for (i=0;i<size;i++) {
+        
+        if (vector[i]>0)
+            sum = sum + vector[i];
+        
+        else
+            sum = sum + vector[i]*(-1);
+    }
+    
+    return sum;
+    
+}
+
+void addVectors(double vector1[], double vector2[], double vector3[], int n) {
+    
+    int i;
+    
+    for (i=0;i<n;i++) {
+        
+        vector3[i] = vector1[i] + vector2[i];
+        
+    }
+    
+}
+
+double scalarProd(double vector1[], double vector2[], int size) {
+    
+    int i;
+    double sum;
+    
+    for (i=0;i<size;i++){
+        
+        sum = sum + (vector1[i]*vector2[i]);
+        
+    }
+    
+    return sum;
+}
+
+/* This uses the built in math library function to calculate the square root*/
+
+double norm2(double vector[], int size) {
+    
+    return sqrt(scalarProd(vector,vector,size));
+    
+}
+

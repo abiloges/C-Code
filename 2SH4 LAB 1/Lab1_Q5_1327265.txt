@@ -1,0 +1,71 @@
+/* LAB 1 QUESTION 5
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+int main(void) 
+{
+    /* This program takes a positive integer as input and returns it reversed*/
+    
+    int pos_int = 1;
+    int temp1 = 0;
+    int digits = 1;
+    
+    /* The while loop first asks for the input, and only continues if it is a 
+     * positive integer, otherwise it keeps asking until it receives a correct
+     * input. The digits are checked using the modulus operator: %10 results 
+     * in the last digit of the integer. After each iteration the original
+     * integer is truncated so each digit can be found. The while loop continues 
+     * as long as the value of a single digit is not greater than the integer */
+    
+    while (temp1 <= pos_int) {
+        
+        printf("Enter the positive integer to be reversed..\n");
+        scanf("%d", &pos_int);
+
+        while (pos_int > 0) {
+            
+            temp1 = pos_int % 10; 
+            
+            /* The program knows not to include trailing zeroes in the beginning 
+             * of the reversed output, but to include the other zero digits
+             * due to the digits variable. If the number ends in zeroes, the 
+             * first digit encountered is a zero, and this is disregarded as
+             * the digits variable has a value of one and it is a condition
+             * in the below if statement. Once a non-zero integer is encountered
+             * the digits value changes and all other zeroes following this
+             * are included in the reversed output.  */
+            
+            
+            if (pos_int%10 == 0 && digits == 1) {
+                
+                pos_int = pos_int/10;
+                
+            }  
+            else {
+                
+                printf("%d", temp1);
+                pos_int = pos_int/10;
+                digits++;
+            }
+      
+        }
+
+        /* The while loop is broken once the integer value becomes 0 as it
+         * is repeatedly divided by 10 and thus truncated and after its last
+         * digit is divided by 10, it becomes a 0 and satisfies the condition
+         * of this if statement. */
+        
+        if (pos_int = 0) {
+            
+            break;
+        }
+
+    }
+ 
+    return 0;
+}

@@ -1,0 +1,91 @@
+/* LAB 3 QUESTION 4
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+/* This program reads a text file, and reverses the order of words and writes
+ * this onto a new text file */
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define SIZE 500
+
+char **readWords(int *nPtr);
+void outputWords(char ** sArray, int size);
+
+/* This function reads the text file, which specifies the number of words on 
+ * the first line and assigns each word to a memory location created by 
+ * the calloc function */
+
+char **readWords(int *nPtr) {
+    
+    int i;
+    char **word_array = NULL;
+    char temp[1000] = {};
+    
+    FILE *input_file;
+    
+    input_file = fopen("data.txt", "r");
+    
+    fscanf(input_file,"%d\n", nPtr ); 
+    
+    word_array = calloc(*nPtr, sizeof(char*));
+    
+    /* This for loop loops until all words are read and first copied into temp,
+     * then another slot of memory is allocated based on the size of this word
+     * and into this memory, the word is copied using strcpy*/
+    
+    for (i=0; i<*nPtr; i++){
+        
+        fscanf(input_file, "%s", temp);
+        word_array[i] = calloc((strlen(temp)+1),sizeof(char));
+        strcpy(word_array[i],temp);
+    }
+    
+    fclose(input_file);
+    
+    return word_array;
+    
+}
+
+/* This function outputs in reversed order the words, into a new text file */
+
+void outputWords(char ** sArray, int size) {
+    
+    int i;
+    
+    FILE *output_file;
+    
+    output_file = fopen("output.txt", "w");
+    
+    fprintf(output_file,"%d\r\n", size );
+    
+    /* This for loop ensures the words are printed in reverse order, because it
+     * starts at the last word in the array and works its way down to the first.
+     * Also the \r\n ensures that each word is printed at the beginning of
+     * each line so its easier to confirm the output is correct */
+    
+    for (i=0; i<size; i++) {
+        
+        fprintf(output_file,"%s\r\n", sArray[size-(i+1)] );
+        
+    }
+    
+    fclose(output_file);
+
+}
+
+
+int main(void) {
+    
+    int n;
+    
+    char **test = readWords(&n);
+    
+    outputWords(test,n);
+    
+    return 0;
+}

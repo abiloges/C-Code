@@ -1,0 +1,52 @@
+/* LAB 1 QUESTION 2
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+int main(void) 
+{
+    /* This program computes the maximum number in a sequence of integers */
+    
+    int max_value;
+    int length;
+    int value_num;
+    int current_value;
+    
+    printf("Enter the number of values in the sequence\n");
+    scanf("%d",&length);
+    
+   
+    value_num = 1;
+    current_value = 0;
+    
+    /* Operates on a term by term basis, where value_num is the number of the
+     * term in the sequence, and loops as long as it is within the range of the 
+     * length. It stores the value of a term at a point in the sequence in a
+     * temporary variable current_value, and the first term as the max_value.
+     * After that it compares each term to this value and if it is larger, 
+     * max_value takes on this value. */
+    
+    while (value_num <= length){
+        
+        printf("Enter value number ");
+        printf("%d :\n", value_num);
+        scanf("%d", &current_value);
+        
+
+        if (value_num < 2 || max_value < current_value) {
+            
+            max_value = current_value;
+        }
+        
+        value_num++;
+    }
+        
+    printf("The maximum value is %d\n", max_value);
+     
+    return 0;
+}
+

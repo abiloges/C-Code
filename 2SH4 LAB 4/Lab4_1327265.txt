@@ -1,0 +1,317 @@
+/* LAB 4
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+/* This is the definition for the structure that defines a student, with 
+ * variables for student number, project grade, exam grade and final mark*/
+
+typedef struct {
+    
+    int stu_num;
+    int proj_grd;
+    int exam_grd;
+    float mark;
+     
+} student;
+
+/* This function reads student numbers from a text file, and creates an array
+ * of students, based on their student numbers */
+
+student **create_class_list( char *filename, int *sizePtr ) {
+    
+    int i;
+    int temp;
+    
+    student **stu_array  = NULL;
+   
+    FILE *input_file;
+    
+    input_file = fopen(filename, "r");
+    
+    fscanf(input_file,"%d ", sizePtr ); 
+    
+    stu_array = calloc(*sizePtr, sizeof(student *));
+    
+    for (i=0; i<*sizePtr; i++){
+        
+        fscanf(input_file, "%d", &temp);
+        stu_array[i] = calloc(1,sizeof(student));
+        stu_array[i] -> stu_num = temp;
+    }
+    
+    fclose(input_file);
+    
+    return stu_array;
+}
+
+/* This function finds the placement inside the array of students, of a specific
+ * student based on their student number. It employs linear search; going 
+ * through the entire set and checking each entry if it matches. */
+
+int find_linsrch( int idNo, student **list, int size ) {
+    
+    int i;
+    
+    for (i=0; i<size; i++) {
+        
+        if (list[i] -> stu_num == idNo)
+            return i;
+        
+    }
+    
+    return -1;
+    
+}
+
+/* This function does the same as the one above, but instead employs binary
+ * search, which is possible because the list is sorted in increasing order by
+ * student number. A middle value is chosen and checked whether it matches the
+ * value being searched, and based on whether it is greater or lesser than this
+ * value, the search sample size is updated and a new mid value assigned and 
+ * this process repeats until the value has been found or there are no
+ * more entries to check. */
+
+int find_binsrch( int idNo, student **list, int size ) {
+    
+    int i;
+    int start = 0;
+    int end = size-1;
+    int mid;
+    
+    while ((end-start)>1) {
+        
+        mid = ((end-start)/2) + start;
+        
+        if (list[mid] -> stu_num == idNo)
+        {   return mid; break;}
+        
+        else if (list[mid] -> stu_num > idNo)
+            end = mid;
+        
+        else if (list[mid] -> stu_num < idNo)
+            start = mid;
+    }
+    
+    if (list[start] -> stu_num == idNo)
+        return start;
+        
+
+    
+    return -1;
+    
+}
+
+/* This function reads the project and exam grades corresponding to a student
+ * number from a file, and inputs those values into the corresponding student
+ * in the array. This file is not sorted, so linear search is employed to find
+ * the placement of the student number read from the file in the array, and 
+ * then its grades are inputted. */
+
+void input_grades( char *filename, student **list, int size ) {
+    
+    int i;
+    int temp1,temp2,temp3,temp4;
+    
+    
+    FILE *input_file;
+    
+    input_file = fopen(filename, "r");
+    
+     for (i=0; i<size; i++){
+        
+        fscanf(input_file, "%d %d %d", &temp1,&temp2,&temp3);
+        temp4 = find_linsrch(temp1,list,size);
+        
+        if (temp4 != -1)
+        {
+            list[temp4]-> stu_num = temp1;
+            list[temp4]-> proj_grd = temp2;
+            list[temp4]-> exam_grd = temp3;
+            
+        }
+    
+    }
+       
+    
+    fclose(input_file);
+    
+    
+}
+
+/* This function computes the final course mark for each student based on a 
+ * course weight scheme of 60% for the exam and 40% for the project grade and
+ * assigns this value to the corresponding student as their final grade. */
+
+void compute_final_course_marks(student **list, int size) {
+    
+    int i;
+    float temp1;
+    float temp2;
+    float final_mark;
+    
+    for (i=0; i<size; i++) {
+        
+        temp1 = list[i] -> proj_grd;
+        temp2 = list[i] -> exam_grd;
+        final_mark = (0.4*temp1) + (0.6*temp2);
+        list[i] -> mark = final_mark;
+        
+    }
+    
+    
+}
+
+/* This function outputs to a given file each student number followed by their 
+ * received course mark. */
+
+void output_final_course_mark(student **list, char *filename, int size) {
+    
+    int i;
+    
+    FILE *output_file;
+    
+    output_file = fopen(filename, "w");
+    
+      for (i=0; i<size; i++) {
+        
+        fprintf(output_file,"%d %f\r\n", list[i]-> stu_num, list[i]-> mark );
+        
+    }
+    
+    fclose(output_file);
+    
+}
+
+/* This function uses recursion to print the student numbers in the array 
+ * backwards. It does this by printing the last entry, and then repeating but
+ * this time with a size value decreased by 1, until size is 1 at which point 
+ * it just prints the first value in the list, thus completing the backwards 
+ * print. */
+
+void print_backwards(student **list, int size) {
+    
+    
+    if (size == 1)
+        printf("%d\n", list[0] -> stu_num);
+       
+    
+    else {
+        
+        printf("%d\n", list[size-1] -> stu_num);
+        print_backwards(list,size-1);
+        
+    }
+    
+    
+}
+
+/* This function withdraws a specific entry from the array of students based on
+ * the given student number. First it checks if the student exists in the array
+ * and if so it frees the allocated memory (thus deleting the student) and then
+ * it shifts the entries by 1 position to the left to fill in the space. */
+
+void withdraw(int idNo, student **list, int *sizePtr) {
+    
+    int check = find_binsrch(idNo,list,*sizePtr);
+    int i;
+    
+    if (check == -1)
+        printf("This student is not a part of this class list...\n");
+    
+    else {
+        
+        free(list[check]);
+        
+        for (i=check;i<*sizePtr-1;i++) {
+            
+            list[i] = list[i+1];
+            
+        }
+
+         *sizePtr = *sizePtr - 1;
+         realloc(list, *sizePtr * sizeof(student *));
+    }
+            
+}
+
+/* This function destroys the created list; it loops through the individual 
+ * students freeing their allocated memory and then lastly it frees the memory
+ * allocated for the whole array. */
+
+void destroy_list(student **list, int *sizePtr) {
+    
+    int i;
+    
+    for (i=0;i<*sizePtr;i++) {
+        
+        if (list[i])
+        free(list[i]);
+        
+    }
+    
+    free(list);
+    
+    *sizePtr = 0;
+    
+}
+
+
+int main(void) {
+    
+ 
+    int size;
+    char name [] = "test.txt";
+    char name2 [] = "input.txt";
+    
+    student **stu_array;
+    
+    stu_array = create_class_list(name, &size);
+    
+    input_grades(name2,stu_array,size );
+    
+    compute_final_course_marks(stu_array,size);
+    
+    int temp1 = find_binsrch(1305004,stu_array,size);
+    int temp2 = find_linsrch(1305004,stu_array,size);
+    
+    printf("The position of 1305004 using linear and binary search is ");
+    printf("%d and %d respectively \n", temp2, temp1);
+    
+    output_final_course_mark(stu_array,"output.txt",size);
+    
+    printf("The current size is %d \n", size);
+    
+    print_backwards(stu_array,size);
+    
+    withdraw(1305006,stu_array,&size);
+    
+    printf("The current size is %d \n", size);
+    
+    withdraw(1305002,stu_array,&size);
+    
+    printf("The current size is %d \n", size);
+    
+    withdraw(1305008,stu_array,&size);
+    
+    printf("The current size is %d \n", size);
+    
+    output_final_course_mark(stu_array,"output2.txt",size);
+   
+    print_backwards(stu_array,size);
+    
+    destroy_list(stu_array, &size);
+    
+    printf("The current size is %d ", size);
+    
+
+    
+    return 0;
+    
+}

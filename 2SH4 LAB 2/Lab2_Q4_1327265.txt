@@ -1,0 +1,144 @@
+/* LAB 2 QUESTION 4
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+/* This library contains 3 string operations*/
+
+void stringCopy(const char source[], char destination[], int n);
+int charFind(const char string[], char ch);
+void letterFreq(const char string[], int freq[]);
+
+/* This function copies the values in one string array into another array
+ * in its entirety as long as the destination array has sufficient size*/
+
+void stringCopy(const char source[], char destination[], int n) {
+    
+    int i;
+    
+    for (i=0;i<n-1;i++) {
+        
+        destination[i] = source[i];
+       
+    }
+    
+    destination[n-1] = 0;
+    
+}
+
+/* This function finds a specific character in a string array and outputs
+ * the index of its first appearance*/
+
+int charFind(const char string[], char ch) {
+    
+    int i;
+    
+    do {
+       
+        if (string[i] == ch){
+            return i;
+            break;
+        }
+        
+        if (string[i] == 0){
+            return -1;
+            break;
+        }
+        
+        i++;
+        
+    }
+    
+    while(1);
+}
+
+/* This function counts the appearances of the alphabet characters (both 
+ * uppercase and lowercase) in a string array and outputs the result for each
+ * letter */
+
+void letterFreq(const char string[], int freq[]) {
+    
+    int lower = 97;
+    int upper = 65;
+    int i,j = 0;
+    
+    for (i=0;i<26;i++) {
+        
+        freq[i] = 0;
+        
+    }
+    
+    i = 0;
+    
+    do {
+        
+        if (string[i] == lower || string[i] == upper)
+            freq[j] = freq[j] + 1;
+        
+        if (string[i] == 0){
+            
+            if (lower == 122 && upper == 90)
+                break;
+            
+            j++;
+            lower++;
+            upper++;
+            i = -1;
+            
+        }
+
+        i++;
+
+        
+    }
+    
+    while(1);
+    
+    lower = 65;
+    upper = 97;
+    
+    for (i=0;i<26;i++) {
+        
+        printf("The count of %c and %c is %d. \n", lower, upper, freq[i]);
+        lower++;
+        upper++;
+        
+    }
+    
+}
+
+
+
+int main(void) {
+    
+    char string1[17] = {'a','A','a','d','E','a','A','a','D','a','A','a','d','a','A','a','d',};
+    char copy[18];
+    int freq[26];
+    char find = 'D';
+    int i;
+    
+    stringCopy(string1,copy,18);
+    
+    printf("The copied string has the following characters: ");
+    
+    for (i=0;i<17;i++) {
+        
+        printf("%c ", copy[i]);
+        
+    }
+    
+    printf("\nThe first instance of %c in the string is at index %d!\n", find, charFind(string1,find));
+    
+    
+    letterFreq(string1,freq);
+    
+    
+    return 0;
+    
+}
+
+

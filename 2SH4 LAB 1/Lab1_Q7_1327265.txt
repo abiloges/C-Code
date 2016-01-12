@@ -1,0 +1,160 @@
+/* LAB 1 QUESTION 7
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+int main(void) 
+{
+    
+    /* This program takes an odd integer between 1-25 as input and creates
+     * 4 shapes based on value given, with the value determining the parameters
+     */
+    
+    int variable;
+    int i;
+    int j;
+    
+    
+    do {
+        
+        printf("Enter an odd integer between 1 and 25 to create the shapes.. ");
+        scanf("%d", &variable);
+        
+        printf("Here are your shapes!");
+        
+        /* The if statement only executes if the input falls within the values
+         * specified; otherwise it keeps looping until a correct value is
+         * inputted by the user. This is because the condition is always true
+         * for this loop and it only exits by completing the if statement 
+         * and reaching the break statement */
+        
+        if ((variable<=25 && variable>=1) && variable%2) {
+            
+            printf("\n");
+            
+            /* The variables i and j are used to represent the conditions of 
+             * the inner and outer loops: "i" is the row number and "j" is 
+             * used to fulfill column operations */
+            
+            for (i = 1; i <= variable; i++) {
+                
+                for (j = 1; j <= 2*variable - 1; j++) {
+                    
+                    printf("*");
+                    
+                }
+                
+                printf("\n");
+            }
+            
+            printf("\n");
+             
+            for (i = 1; i <= variable; i++) {
+                
+   
+                for (j = 1; j <= (variable-i); j++) {
+                        
+                    printf(" ");
+                }
+                    
+                for (j = 1; j <= (i*2-1); j++) {
+                        
+                    printf("*");
+                }
+ 
+                printf("\n");
+                
+            }
+            
+            printf("\n");
+            
+            for (i = 1; i <= variable; i++) {
+                
+                 for  (j = variable*2 - 2; j>=(i-1)*2; j = j-1) {
+                     
+                     printf("*");
+                     
+                 }
+                     
+                 printf("\n");
+                
+            } 
+            
+            printf("\n");
+            
+
+            /* The last shape required that the input be split into 3 parts.
+             * This is because the shape itself is composed of 3 different 
+             * patterns which is based on the row number and which is why
+             * I used and if..else if...else statement. */
+            
+            for (i = 1; i <= variable; i++) {
+                
+                if (i <= variable/2) {
+                    
+                    for (j = 1; j < i; j++) {
+                        
+                    printf(" ");
+                    
+                    } 
+ 
+                    for (j = 1; j <= variable-2*(i-1); j++) {
+                        
+                    printf("*");
+                    
+                    }
+                    
+                     printf("\n");
+                    
+                }
+                
+                else if (i == ((variable/2)+1)) {
+                    
+                    for (j = 1; j <= variable/2; j++) {
+                        
+                        printf(" ");
+                        
+                    }
+                    
+                    printf("*");
+                    printf("\n");
+                }
+                
+                else {
+                    
+                    for (j = 1; j <= variable - i; j++) {
+                        
+                    printf(" ");
+                    
+                    }
+
+                    for (j = 1; j <= variable - (variable - i)*2; j++) {
+                        
+                    printf("*");
+                    
+                    }
+                    
+                    printf("\n");
+                    
+                }
+    
+      
+                
+            }
+            
+            
+            break;
+        }
+        
+            
+            
+    }
+    while (1);
+    
+    return 0;
+    
+}

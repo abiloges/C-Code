@@ -1,0 +1,63 @@
+/* LAB 3 QUESTION 3
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+/* This program concatenates two strings, with space for the null character */
+
+char *my_strcat( const char * const str1, const char * const str2);
+
+char *my_strcat( const char * const str1, const char * const str2) {
+    
+    /* Here we find the size of the new concatenated string: which is the 
+     * sum of the letters in the first and second strings plus 1 for the 
+     * null character */
+    
+    int i;
+    int n = ((strlen(str1) + strlen(str2))+1);
+    char *p;
+    
+    p = (char*) malloc ( n*sizeof( char ));
+    
+    
+    for (i=0; i<strlen(str1); i++) {
+        
+        p[i]= str1[i];
+        
+    }
+    
+    /* After the first string is copied to the memory location, the second
+     * string is copied from where the first string ended */
+    
+    for (i=strlen(str1); i<n; i++){
+        
+        p[i]= str2[i-strlen(str1)];
+        
+    }
+    
+    /* Lastly the null character is added */
+    
+    p[n-1] = '\0';
+    
+    return p;
+    
+    
+}
+
+
+int main(void) {
+    
+    
+    
+    printf("%s",(my_strcat("Hello","world!")));
+  
+    
+    return 0;
+    
+}

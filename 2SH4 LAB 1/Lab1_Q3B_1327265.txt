@@ -1,0 +1,51 @@
+/* LAB 1 QUESTION 3B
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+int main(void) 
+{
+    /* This program checks whether the integer inputted is 3 digits, and 
+     * continues looping until the user inputs 0*/
+    
+    int integer_input;
+    
+    printf("Enter an integer and I will check if it has 3 digits...\n");
+    printf("Enter 0 if you wish to exit..\n");
+    
+    /* The terms of this while loop are that it keeps checking indefinitely 
+     * whether the input is 3 digits (falls between -999 and -100 or 100 and 
+     * 999) and lets the user know the result. The loop exits when 0 is entered
+     * due to the break, and displays an exit statement. */ 
+    
+    while (1){
+        printf("Enter the integer : ");
+        scanf("%d",&integer_input); 
+
+        if ((integer_input<1000 && integer_input>99)||(integer_input>-1000 && integer_input<-99)) {
+        
+            printf("This is a 3 digit integer!\n");
+        
+            }
+    
+        else if (integer_input == 0) {
+            
+            break;
+        }
+        
+        else {
+        
+            printf("This is NOT a 3 digit integer..\n");
+        }
+    }
+    
+    
+    printf("Thank you for using my program, Bye!");
+  
+    return 0;
+}
+

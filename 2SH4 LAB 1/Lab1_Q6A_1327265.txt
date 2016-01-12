@@ -1,0 +1,47 @@
+/* LAB 1 QUESTION 6A
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+int main(void) 
+{
+    /* This program calculates the value of Pi from its infinite series 
+     * based on a specific number of terms specified by the user */
+    
+    int terms;
+    float summation = 4.0;
+    int counter;
+    
+    printf("Enter the number of terms from which Pi is to be calculated ");
+    printf("from the infinite series..\n");
+    scanf("%d", &terms);
+   
+    /* This for loop only operates when the terms is greater than 2; if not
+     * the value of 4 is merely given. It differentiates between the alternating
+     * subtraction and addition of terms by using %2 to determine if the term is
+     * even or odd. It continues until it has calculated to the terms specified
+     * by the user. */
+    
+    for (counter = 1; (counter < terms) && terms != 1; counter++) {
+        
+        if (counter%2) {
+            
+            summation = summation - (4.0/(3+2*(counter-1)));
+        }
+        
+        else {
+            
+            summation = summation + (4.0/(3+2*(counter-1)));
+        }
+        
+        
+    }
+    
+    printf("The approximation of Pi from %d terms is %f!", terms, summation);
+    
+    return 0;
+}

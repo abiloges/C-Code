@@ -1,0 +1,70 @@
+/* LAB 1 QUESTION 6B
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+int main(void) 
+{
+    int terms;
+    float summation = 4.0;
+    int counter;
+    double approx = 4.0;
+    
+    printf("Enter the number of terms from which Pi is to be calculated ");
+    printf("from the infinite series..\n");
+    scanf("%d", &terms);
+   
+    for (counter = 1; (counter < terms) && terms != 1; counter++) {
+        
+        if (counter%2) {
+            
+            summation = summation - (4.0/(3+2*(counter-1)));
+        }
+        
+        else {
+            
+            summation = summation + (4.0/(3+2*(counter-1)));
+        }
+        
+        
+    }
+    
+    counter = 1;
+    
+    printf("The approximation of Pi from %d terms is %f!\n", terms, summation);
+    
+    /* This addition to the original program calculates the minimum number of
+     * terms that results in a precision of at least 3.1415 in the calculation
+     * of Pi. It follows the same method as the above code except that it 
+     * continues to calculate until the value obtained is greater than or 
+     * equal to 3.1415 and also less than 3.1416, at which point it outputs
+     * the counter variable which keeps track of the number of terms used. */
+    
+    do {
+        
+        if (counter%2) {
+            
+            approx = approx - (4.0/(3+2*(counter-1)));
+            counter++;
+        }
+        
+        else {
+            
+            approx = approx + (4.0/(3+2*(counter-1)));
+            counter++;
+        }
+        
+        
+    }
+    
+    while (!(approx < 3.1416 && approx >= 3.1415));
+    
+    printf("The number of terms needed to approximate Pi to at least 3.1415 ");
+    printf("is %d terms..", counter);
+    
+    return 0;
+}

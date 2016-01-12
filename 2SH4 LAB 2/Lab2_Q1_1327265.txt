@@ -1,0 +1,88 @@
+/* LAB 2 QUESTION 1
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+/* This program converts a number of student grade averages into quality points
+ * and does so using a function qualityPoints which takes in as a parameter the 
+ * average and outputs the appropriate quality point. It can also screen for
+ * invalid inputs that do not fall within the grading range.*/
+
+int qualityPoints (float average) {
+    
+    
+    if (average<=100.0 && average >=90.0) {
+        
+        return 4;
+    }
+    
+    else if (average<90.0 && average>=80.0) {
+        
+        return 3;
+    }
+    
+    else if (average<80.0 && average>=70.0) {
+        
+        return 2;
+    }
+    
+    else if (average<70.0 && average>=60.0) {
+        
+        return 1;
+    }
+    
+    else if (average<60.0 && average>=0.0) {
+        
+        return 0;
+    }
+    
+    else {
+        
+        return -1;
+    }
+        
+}
+
+
+int main(void) {
+    
+    int i;
+    int num_grades;
+    float temp_grade;
+    int temp_qualityPoint;
+    
+    printf("Enter the number of student grades to be converted to");
+    printf(" quality points:\n");
+    scanf("%d", &num_grades);
+    
+    /* The user can choose the number of grades they wish to have converted 
+     * and the loop continues until this number has been reached*/
+    
+    for (i=0;i<num_grades;i++) {
+        
+        printf("Enter grade %d: ", i+1);
+        scanf("%f", &temp_grade);
+        
+        
+        
+        temp_qualityPoint =  qualityPoints(temp_grade);
+        
+        
+       if (temp_qualityPoint != -1)
+            printf("The quality point of grade %d is %d \n", i+1,temp_qualityPoint);
+        
+        else
+            printf("This is an invalid input\n");
+        
+    }
+    
+    
+    return 0;
+    
+}
+
+

@@ -1,0 +1,42 @@
+/* LAB 1 QUESTION 4
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+int main(void) 
+{
+    /* This program counts the number of instances of a particular letter 
+     * in a string of text ending with an exclamation mark */
+    
+    int counter;
+    char letter;
+    char temp;
+   
+    printf("Enter the character to be scanned in the text..");
+    scanf("%c", &letter);
+    
+    printf("Enter the text ending with an exclamation mark..\n");
+    
+    /* This while loop uses the getchar function to scan the text one character
+     * at a time and assigning its value to a temporary variable. If this 
+     * matches the letter being scanned the counter variable increases and 
+     * this process continues until an exclamation mark is encountered.*/
+    
+    while ((temp = getchar()) != '!') {
+        if (temp != letter) {
+            continue;
+        
+        }
+        else {
+            counter++;
+        }
+    }
+    
+    printf("The letter %c appears %d times in the text!", letter, counter);
+  
+    return 0;
+}

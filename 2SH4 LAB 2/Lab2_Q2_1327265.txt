@@ -1,0 +1,116 @@
+/* LAB 2 QUESTION 2
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+
+/* This function takes as input a positive integer and finds all the perfect
+ * numbers up to and including this input. It then outputs the perfect number
+ * along with its factors using the isFactor, isPerfect and printFactors 
+ * functions. */
+
+/* This checks if it is a factor based on whether there is a remainder after 
+ * division*/
+
+int isFactor (int pos_num1, int pos_num2) {
+    
+    if (!(pos_num1%pos_num2))
+        return 1;
+    else 
+        return 0;
+        
+}
+
+/* This uses isFactor and computes all the factors and then checks whether 
+ * they add up to the value of the entered integer*/
+
+int isPerfect (int pos_num) {
+    
+    int i;
+    int factor_sum = 0;
+    
+    for (i=1; i<pos_num; i++) {
+        
+        if (isFactor(pos_num, i) == 1)
+            factor_sum = factor_sum + i;
+        
+    }
+    
+    if (factor_sum == pos_num)
+        return 1;
+    
+    else
+        return 0;
+    
+}
+
+
+/*This function prints the factors for a given integer*/
+
+void printFactors(int pos_num)
+{
+    int i = 1;
+    int factor;
+    
+    while (i<=pos_num)
+    {
+        factor = isFactor(pos_num,i);
+        if (factor == 1)
+        {
+            printf("%d ",i);
+        }
+        i++;
+        
+    }
+    
+}
+
+int main(void) {
+    
+    int max_num;
+    int i,j;
+    
+    printf("Enter a positive number until which perfect numbers are ");
+    printf("to be calculated and displayed along with their factors..\n");
+    
+    /* This loop checks if the entered input is a positive integer*/
+    
+    do {
+        
+        scanf("%d", &max_num);
+        if (max_num<=0) {
+            
+            printf("Invalid input entered, try again..\n");
+            
+        }
+        
+        else
+            break;
+    }
+    
+    while (1);
+    
+    printf("\n");
+    
+    for (i=1;i<=max_num;i++) {
+        
+        if (isPerfect(i)) {
+            
+            printf("%d is a perfect number! \n", i);
+            printf("Here are its factors: ");
+                    
+            printFactors(i);
+            
+            printf("\n");
+        }
+        
+        
+    }
+    
+    return 0;
+    
+}
+

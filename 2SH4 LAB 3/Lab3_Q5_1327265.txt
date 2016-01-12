@@ -1,0 +1,82 @@
+/* LAB 3 QUESTION 5
+ * File:   main.c
+ * Name: Abilash Logeswaran
+ * Lab Section: L04
+ * Student ID: 1327265
+ */
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+/* This is part a of Q5. It splits a sparse vector into its non-zero components
+ * and stores their values as well as their positions in a 2-D memory 
+ * allocated by malloc. */
+
+int** storeEff( int vec1[ ], int n, int *kPtr);
+
+int** storeEff( int vec1[ ], int n, int *kPtr) {
+    
+    /* These arrays are temporary, and store the values and positions of
+     * the non-zero components */
+    
+    int *temp_pTr1 = (int*) calloc(n, sizeof(int));
+    int *temp_pTr2 = (int*) calloc(n, sizeof(int));
+    int size = 0;
+    int i = 0;
+    
+    for (i=0; i<n; i++) {
+        
+        if ((vec1[i]) != 0){
+            
+            temp_pTr1[size] = vec1[i];
+            temp_pTr2[size] = i;
+            
+            size++;
+            
+        }
+        
+    }
+    
+    /* Here the double pointer is declared which stores 2 pointers: one pointing
+     * to the non-zero values and the other to their positions */
+    
+    int **effArray = (int **) malloc ( 2*sizeof( int * ));
+    
+    for( i = 0; i < 2; i++ )
+        effArray[i] = (int *) malloc( size*sizeof(int) );
+        
+    for (i=0; i<size; i++) {
+    
+        if (temp_pTr1 == 0)
+            return 0;
+        
+        effArray[0][i] = temp_pTr1[i];
+        effArray[1][i] = temp_pTr2[i];
+                    
+    }
+    
+    *kPtr = size;
+    
+    return effArray;
+    
+}
+
+
+int main(void) {
+    
+    int m;
+    int i;
+    int vec1[10] = {0,0,1,2,0,4,0,5,7,0};
+    
+    int **testArray = storeEff(vec1,10,&m);
+    
+    for (i=0; i<m; i++) {
+        
+        printf("Element %d is %d at position %d \n",i+1,testArray[0][i],testArray[1][i]);
+        
+    }
+    
+    return 0;
+    
+}
